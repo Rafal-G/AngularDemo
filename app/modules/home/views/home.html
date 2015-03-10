@@ -1,0 +1,152 @@
+<div>
+    <div class="container">
+        <h1>Directives</h1>
+        <p>Directives are markers on a DOM element that tell AngularJS to attach a specific behavior to that DOM element
+        or even transform the DOM element and its children.</p>
+        <div ng-controller="DemoController as dc">
+
+            <div class="well well-large">
+                <p>Simple directive ng-model</p>
+                <input type="text" ng-model="sampleBinding">
+                <br />
+                <br />
+                <p>{{sampleBinding}}</p>
+                <button type="button" class="btn btn-lg btn-info">{{sampleBinding}}</button>
+
+            </div>
+            <div class="well well-large">
+                <p>Changing DOM values</p>
+
+            <p />
+                <label for="defaultCBX">Disable Default</label>
+                <input id="defaultCBX" type="checkbox" ng-model="dc.btn.default"/>
+            <p />
+                <label for="primaryCBX">Hide Primary</label>
+                <input id="primaryCBX" type="checkbox" ng-model="dc.btn.primary"/>
+            <p />
+                <label for="successCBX">Disable Success</label>
+                <input id="successCBX" type="checkbox" ng-model="dc.btn.success"/>
+            <p />
+                <label for="infoCBX">Disable Info</label>
+                <input id="infoCBX" type="checkbox" ng-model="dc.btn.info"/>
+            <p />
+                <label for="warnCBX">Disable Warn</label>
+                <input id="warnCBX" type="checkbox" ng-model="dc.btn.warning"/>
+            <p />
+                <label for="dangerCBX">Disable Danger</label>
+                <input id="dangerCBX" type="checkbox" ng-model="dc.btn.danger"/>
+            <p />
+                <label for="linkCBX">Disable link</label>
+                <input id="linkCBX" type="checkbox" ng-model="dc.btn.link"/>
+
+            <p>
+                <button type="button" class="btn btn-lg btn-default" ng-disabled="dc.btn.default">Default</button>
+                <button type="button" class="btn btn-lg btn-primary" ng-hide="dc.btn.primary">Primary</button>
+                <button type="button" class="btn btn-lg btn-success" ng-disabled="dc.btn.success">Success</button>
+                <button type="button" class="btn btn-lg btn-info" ng-disabled="dc.btn.info">Info</button>
+                <button type="button" class="btn btn-lg btn-warning" ng-disabled="dc.btn.warning">Warning</button>
+                <button type="button" class="btn btn-lg btn-danger" ng-disabled="dc.btn.danger">Danger</button>
+                <button type="button" class="btn btn-lg btn-link" ng-disabled="dc.btn.link">link</button>
+
+            </p>
+            </div>
+
+            <div class ="well well-large">
+                <p>Using ng-repeat</p>
+                <table class="table">
+                    <tr>
+                        <th>Description</th>
+                        <th>Message ID</th>
+                        <th>CARN</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr ng-repeat="message in messages">
+                        <td>{{message.desc}}</td>
+                        <td>{{message.id}}</td>
+                        <td>{{message.carn}}</td>
+                        <td>{{message.status}}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="well well-large">
+                <p>Dynamic Attributes</p>
+                <input type="text" ng-model="dc.linkAttribute" />
+                <br/><a href="http://www.{{dc.linkAttribute}}">This link changes: {{dc.linkAttribute}}</a>
+            </div>
+
+            <div class="well well-large">
+                <p>Our own custom directives</p>
+                <div icbs-message-display></div>
+            </div>
+        </div>
+    </div>
+
+    <h1>Controllers</h1>
+    <p>Controllers are used to set up initial states and to add behaviour to your html. A controller is the workhorse of
+    AngularJS.</p>
+    <div ng-controller="CustomController as cc">
+        <div class="well well-large">
+            <input ng-model="uiName" />
+            <button type="button" class="btn btn-lg btn-default" ng-click="helloMessage(uiName)">Greet</button>
+            <p>{{name}}</p>
+        </div>
+        <div class="well well-large">
+        <p>Message Status: {{messageStatus}}</p>
+        <p>
+            <button type="button" class="btn btn-lg btn-default" ng-click="submitMessage()">Submit Message</button>
+            <button type="button" class="btn btn-lg btn-default" ng-click="resubmitMessage()">Resubmit Message</button>
+        </p>
+        </div>
+    </div>
+
+
+    <h1>Services</h1>
+    <p>Services are used to organise and share code across the app</p>
+    <div class="well well-large" ng-controller="ServiceController as sc">
+        <input type="text" ng-model="message">
+        <button type="button" class="btn btn-lg btn-default" ng-click="callNotify(message);">Notify</button>
+    </div>
+
+    <h1>Filters</h1>
+    <p>A filter formats the value of an expression for display to the user. They can be used in view templates, controllers or services and it is easy to define our own filters.</p>
+    <div ng-controller="FilterController as fc">
+        <div class="well well-large">
+            Amount unfiltered: {{amount}}<br />
+            Amount Currency: {{amount | currency}} <br />
+            Amount Number(2): {{amount | number:2}} <br />
+            Amount Number(6): {{amount | number:6}} <br />
+        </div>
+        <div class="well well-large">
+            <br/>
+            <input type="text" ng-model="greeting"><br />
+            {{greeting | reverse}}<br />
+            {{greeting | reverse:true}}
+        </div>
+        <div class ="well well-large">
+            <input type="text" ng-model="filterString">
+            <br>
+            <table class="table">
+                <tr>
+                    <th>Description</th>
+                    <th>Message ID</th>
+                    <th>CARN</th>
+                    <th>Status</th>
+                </tr>
+                <tr ng-repeat="message in messages | filter:filterString | orderBy:message.id">
+                    <td>{{message.desc}}</td>
+                    <td>{{message.id}}</td>
+                    <td>{{message.carn}}</td>
+                    <td>{{message.status}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+    <h1>And lots more</h1>
+    <li>Unit Testing</li>
+    <li>E2E Testing</li>
+    <li>Animations</li>
+
+</div>
